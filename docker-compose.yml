@@ -1,0 +1,34 @@
+version: '2'
+
+services:
+  db:
+    build: database/.
+    hostname: db
+    environment:
+      MYSQL_ROOT_PASSWORD: supersecure
+      MYSQL_DATABASE: rest
+    networks:
+      - database
+
+  microservice:
+    build: microservice/.
+    hostname: microservice
+    command: bash -c "python app_test.py ; python microservice.py "
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"
+    networks:
+      - local_net
+      - database
+
+  web:
+    build: web/.
+    ports:
+      - "8100:8100"
+    networks:
+      - local_net
+
+networks:
+  local_net:
+  database:
