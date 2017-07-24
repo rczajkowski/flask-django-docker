@@ -15,38 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from django.http import HttpResponse
-
-from django.shortcuts import render
-import requests
-import json
-
-
-def all_users(request):
-    url = 'http://microservice:8000/api/user'
-    r = requests.get(url)
-    users = r.json()
-
-    users_dict = json.dumps(users)
-
-    return render(request, 'users.html', {'users': json.loads(users_dict)['objects']})
-
-
-def add_user(request):
-    if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-
-        url = 'http://microservice:8000/api/user'
-        data = json.dumps({u'username': username, u'password': password})
-
-        headers = {'content-type': 'application/json'}
-        r = requests.post(url=url, data=data, headers=headers)
-        if r.status_code == 201:
-            return HttpResponse("success")
-
-    return render(request, 'add_new.html')
-
+from views import *
 
 urlpatterns = [
     url(r'^users/', all_users, name='users'),
