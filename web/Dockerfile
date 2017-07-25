@@ -1,7 +1,7 @@
 FROM python:2.7
-WORKDIR /app/microservice
+WORKDIR /app/web
 
-ADD . /app/microservice
+ADD . /app/web
 
 RUN pip install -r requirements.txt
 RUN python manage.py makemigrations
