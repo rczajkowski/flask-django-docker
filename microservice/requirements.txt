@@ -3,3 +3,5 @@ flask-SQLAlchemy
 flask-restless
 mysqlclient
 coverage
+behave
+requests

@@ -1,7 +1,6 @@
 from unittest import TestCase
 from django.test import Client
 
-
 class ViewTest(TestCase):
 
     def setUp(self):
@@ -11,7 +10,7 @@ class ViewTest(TestCase):
         response = self.client.get('/add')
         self.assertEqual(response.status_code, 200)
 
-    def test_add_user_view_post_method(self):
+    def test_user_save_method(self):
         from web.forms import UserForm
         form = UserForm(data={'username': 'usernametestss', 'password': 'passwordss'})
 
