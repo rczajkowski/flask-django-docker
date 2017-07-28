@@ -1,5 +1,6 @@
 import json
 import unittest
+from morelia import run
 from microservice import app, database, create_test_app
 
 
@@ -67,6 +68,21 @@ class FlaskTest(unittest.TestCase):
 
         self.assertEqual(response.status_code, 404)
 
+    def test_addition(self):
+        run('example.feature', self, verbose=True)
 
-if __name__ == '__main__':
-    unittest.main()
+    def step_the_API_at_the_URL(self, url):
+        r'the API at the URL "{url}"'
+        self.url = url
+
+    def step_I_send_a_signed_request_to_the_path(self, method, path):
+        r'I send a signed {method} request to the "{path}" path'
+        self.response = self.client.get(path)
+
+    def step_status_code_status_should_be_returned(self, status):
+        r'status code "(\d+)" should be returned'
+        assert self.response.status_code == status
+
+
+#if __name__ == '__main__':
+#   unittest.main()
